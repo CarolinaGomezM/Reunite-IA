@@ -1,4 +1,16 @@
-document.addEventListener('DOMContentLoaded', ()=>{
+document.addEventListener('DOMContentLoaded', () => {
+  if (sessionStorage.getItem("logged") != "true") {
+    alert("Por favor incie sesión.");
+    window.location = "pruebalogin.html";
+  }
+
+  const menuToggle = document.getElementById("menu-toggle");
+  const menuList = document.getElementById("menu-list");
+
+  menuToggle.addEventListener("click", () => {
+    menuList.classList.toggle("active");
+  });
+
   let mascotas = [];
   let userId = sessionStorage.getItem('userId');
 
@@ -50,24 +62,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
       listaMascotas.appendChild(divMascota); // Agrega el div de la mascota directamente al contenedor
       document.getElementById(`mascota-${mascota.id}`).addEventListener('click', () => verDetalles(mascota.id));
     });
-  }
-  function mostrarImagen() {
-    const imagenInput = document.getElementById('imagen');
-    const imagenMostrada = document.getElementById('imagenMostrada');
-    const file = imagenInput.files[0];
-  
-    if (file) {
-      const reader = new FileReader();
-  
-      reader.onload = (e) => {
-        imagenMostrada.src = e.target.result;
-      };
-  
-      reader.readAsDataURL(file);
-    } else {
-      // Si no se selecciona ningún archivo, se muestra una imagen vacía o un mensaje
-      imagenMostrada.src = '';
-    }
   }
 
   function verDetalles(id) {
